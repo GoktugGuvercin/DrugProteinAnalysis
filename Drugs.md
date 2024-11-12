@@ -40,12 +40,11 @@
 | SN-38           | TOP1               | DNA Strand Break Accumulation                                             | [36]      |
 
 
-[1]: 5-fluorouracil: mecha- nisms of action and clinical strategies.
-[2]: ABT-888, an orally active poly (ADP-ribose) polymerase inhibitor that potentiates DNA-damaging agents in preclinical tumor models.
-[3]: Sunitinib: a multitargeted receptor tyrosine kinase inhibitor in the era of molecular cancer therapies.
-[4]: Sorafenib and sunitinib: novel targeted therapies for renal cell cancer.
-[5]: Induction of apoptosis and cell cycle arrest by CP-358,774, an inhibitor of epidermal growth factor receptor tyrosine kinase.
-[6]: DNA strand breaks and apoptosis induced by oxaliplatin in cancer cells.
-[7]: Novel actions of the antitumor drugs vinflunine and vinorelbine on
-microtubules.
-[8]: 
+* [1]: 5-fluorouracil: mechanisms of action and clinical strategies.
+* [2]: ABT-888, an orally active poly (ADP-ribose) polymerase inhibitor that potentiates DNA-damaging agents in preclinical tumor models.
+* [3]: Sunitinib: a multitargeted receptor tyrosine kinase inhibitor in the era of molecular cancer therapies.
+* [4]: Sorafenib and sunitinib: novel targeted therapies for renal cell cancer.
+* [5]: Induction of apoptosis and cell cycle arrest by CP-358,774, an inhibitor of epidermal growth factor receptor tyrosine kinase.
+* [6]: DNA strand breaks and apoptosis induced by oxaliplatin in cancer cells.
+* [7]: Novel actions of the antitumor drugs vinflunine and vinorelbine on microtubules.
+* [8]: 
