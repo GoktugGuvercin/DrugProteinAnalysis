@@ -72,6 +72,40 @@ def read_fasta(input_file: str) -> tuple:
     return uniprot_ids, seqs, headers
 
 
+def has_pyrrolysine(seq: str) -> bool:
+    """Checks the sequence contains pyrrolsine amino acid.
+
+    * Pyrrolysine, encoded by the 'amber' stop codon UAG, is
+    an a-amino acid involved in protein biosynthesis in certain
+    methanogenic archaea and bacteria. Notably, it is absent in
+    humans.
+    * Example: Uniprot id: O30642, Prot. Name: MTMB1_METBA, Gene: mtmB1
+
+    Args:
+      seq: primary structure of a protein in str format
+    """
+    if not is_string(seq):
+        raise TypeError(f"Invalid input type; should be str, got {type(seq)}")
+    return "O" in seq
+
+
+def has_selenocysteine(seq: str) -> bool:
+    """Checks the sequence contains selenocysteine amino acid.
+
+    * Most of human proteins comprise 20 major amino acids.
+    Selenocysteine (U), as 21th amino acid, appears in 25 human
+    selenoproteins, some of which are involved in antioxidant
+    defense and thyroid hormone regulation. In protein decomposition,
+    selenocysteine is not considered.
+
+    Args:
+      seq: primary structure of a protein in str format
+    """
+    if not is_string(seq):
+        raise TypeError(f"Invalid input type; should be str, got {type(seq)}")
+    return "U" in seq
+
+
 class ProteinDB:
 
     def __init__(
@@ -123,7 +157,7 @@ class ProteinDB:
 
         if uniprot_id not in self.database.index:
             raise ValueError("Invalid uniprot id for proteome database")
-        return self.database.loc[uniprot_id].tolist()
+        return self.database.loc[uniprot_id].to_list()
 
     def search_gene(self, gene: str) -> pd.DataFrame:
         """It returns uniprot id, sequence, and description of target protein.
