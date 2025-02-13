@@ -14,3 +14,34 @@ Within a polypeptide chain, amino acids can form hydrogen bonds, which lay the f
 Each amino acid has a unique side chain, or R group, which defines its properties, such as polarity, charge, and size. These R groups play a crucial role in folding the polypeptide into its tertiary structure through various interactions. For instance, ionic bonds form between oppositely charged R groups, stabilizing the structure through salt bridges [MB06; DKD11; Kuo+13]. Similarly, hydrogen bonds between polar side chains contribute to stabilization, and disulfide bonds between cysteine residues facilitate folding and structural integrity. Additionally, hydrophobic R groups tend to cluster inside the protein to avoid water, while hydrophilic R groups are typically found on the surface, interacting with water molecules.
 
 The tertiary structure results from the integrity of the primary and secondary structures, producing a single monomeric protein. When multiple monomeric chains interact, they form a quaternary structure, an organized assembly of subunits.
+
+# Protein Existence (PE) in Uniprot
+
+PE stands for “Protein Existence in UniProt. It assigns a value from 1 to 5 to reflects the type of evidence supporting the existence of the protein:
+
+PE=1: Evidence at protein level (direct protein sequencing or mass spectrometry).
+PE=2: Evidence at transcript level (mRNA data but no direct protein-level evidence).
+PE=3: Inferred from homology (similarity to proteins in other organisms).
+PE=4: Predicted (no experimental evidence, no strong homology evidence).
+PE=5: Uncertain (very little or contradictory evidence).
+
+# Proteins in Pfam Domain
+
+Pfam is a comprehensive database of protein families. Each protein is classified into one family or multiple families at the same time,
+based on the presence of conserved domains. In general each domain defines a family, and qualify the proteins to have some functionalities.
+
+For example, PF00069 refers to protein-kinase domain. It is highly conserved region found in a vast array of proteins. These proteins are involved in various cellular processes. A protein kinase is an enzyme responsible for phosphorylation, that is the process of adding  phosphates to proteins to regulate their functionality and creating a signal through the cell. At this point, structural conformation of
+target protein can be changed, and its activity would be modified. In this process,  phosphates are sourced by ATP molecules. 
+
+Protein kinases are categorized in same family group, but this does not mean that their primary amino-acid chains are completely same.
+In fact, they have quite different ordering of amino-acids in polypeptide chain with some subtle exceptions of motifs. To phosphorylate other molecules, all kinases have
+
+- ATP-binding motifs: It faciliates ATP binding and positioning for the phosphoryl transfer reaction, known as Walker-A motif or P-loop. It is capable of interacting with the phosphate groups of ATP. These motifs are generaly formed in G-x(4)-GK-\[TS\] pattern
+
+- Catalytic loop motif: It is HRD motif (Histidine-Arginine-Aspartic acid)
+
+- Activation loop motif: It is DFG motif (Aspartic acid-Phenylalanine-Glycine) to regulate kinase activity. 
+
+* https://en.wikipedia.org/wiki/Walker_motifs
+* https://en.wikipedia.org/wiki/Protein_kinase
+* https://en.wikipedia.org/wiki/Protein_phosphorylation#cite_note-1

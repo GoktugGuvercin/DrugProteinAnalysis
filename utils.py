@@ -222,3 +222,6 @@ class ProteinDB:
     def save_to_csv(self, save_dir: str) -> None:
         """Saves protein database into csv file."""
         self.database.to_csv(save_dir)
+
+    def __len__(self) -> int:
+        return len(self.database)
