@@ -2,8 +2,9 @@
 
 This repository is dedicated to drug and protein analysis. It will higlight theoretical knowledge-base together with related deep learning projects. 
 
-1. [Cancer Drugs](https://github.com/GoktugGuvercin/Cancer-Research/blob/main/Drugs.md)
-2. [Protein Database](https://github.com/GoktugGuvercin/Cancer-Research/blob/main/utils.py)
+1. [Cancer Drugs](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/Drugs.md)
+2. [Protein Database](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/scripts/utils.py)
+3. [Protein Families](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/scripts/pfam.py)
 
 
 ## ProteinDB
