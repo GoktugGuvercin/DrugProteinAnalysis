@@ -64,12 +64,15 @@ config.perplexity = 50
 config.init = "random"
 config.learning_rate = "auto"
 
-target_pfams = ["PF00096", "PF00069"]
+target_pfams = ["PF00096;PF01352", "PF00069"]
 
 pfamily.apply_tsne(query_genes, query_embeds, config, target_pfams)
 
 ```
 
+<p align="center">
+  <img src="https://github.com/GoktugGuvercin/Cancer-Research/blob/main/images/all_proteins.png" width="750" title="All Proteins in Pickle File">
+</p>
 
 
 ## Proteins 
