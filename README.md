@@ -72,6 +72,7 @@ pfamily.apply_tsne(query_genes, query_embeds, config, target_pfams)
 
 <p align="center">
   <img src="https://github.com/GoktugGuvercin/Cancer-Research/blob/main/images/all_proteins.png" width="750" title="All Proteins in Pickle File">
+   <img src="https://github.com/GoktugGuvercin/Cancer-Research/blob/main/images/two_family_groups.png" width="750" title="Specific Pfam Groups">
 </p>
 
 
