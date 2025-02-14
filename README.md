@@ -5,6 +5,73 @@ This repository is dedicated to cancer research. It will higlight theoretical kn
 1. [Cancer Drugs](https://github.com/GoktugGuvercin/Cancer-Research/blob/main/Drugs.md)
 2. [Protein Database](https://github.com/GoktugGuvercin/Cancer-Research/blob/main/utils.py)
 
+
+## ProteinDB
+
+To construct a protein database, we need to have protein entries in a `.tsv` file format. I specifically opted for human proteome entries, which is provided by [UniProt](https://www.uniprot.org/proteomes/UP000005640) database. The given code block below is standard `main.py` to realize a protein database and search for any protein id or gene name.
+Our `ProteinDB` also allows for saving specific columns of its database entries; passing requested column names is enough for this.
+
+```python
+from scripts.utils import ProteinDB
+
+data_dir = "./data/human_proteome_reviewed.tsv"
+protein_db = ProteinDB(data_dir)
+
+print(len(protein_db))
+
+# search by uniprot id
+uniprot_id = "Q7LG56"
+entry = protein_db.search_uniprot_id(uniprot_id)
+print("\nUniprot Id: ", uniprot_id)
+print(entry)
+print()
+
+# search by gene name
+proteins = protein_db.search_gene("AKAP7")
+print(proteins)
+print()
+
+# saving genes and pfams in a separate tsv file
+save_dir = "./data/genes_pfams.tsv"
+protein_db.save_columns(["Entry Name", "Gene", "Pfam"], save_dir, True)
+
+```
+
+## Pfam
+
+Protein families are categorization groups for the structure and functionality of proteins. Our `Pfam` provides an information retrieval system between genes or proteins and related pfam entries. To instantiate `Pfam` database, we can use `genes_pfams.tsv` file, which will construct gene $\rightarrow$ pfam and pfam $\rightarrow$ gene dictionaries, as well as assign color codes to distinct pfam groups. 
+
+By using `ProtTrans` model, which is not added to this repository, we created embedding vectors for thousands of proteins and matched these embeddings with gene names of those proteins in pickle file `prot_bert_embeds.p`. By using these embeddings, we can generate TSNE visualization of the proteins, and we can assign color codes to these proteins in TSNE depending on protein family entries in our `Pfam` database. To achieve that, we can access pfam entries of target proteins by their gene names in `prot_bert_embeds.p` file. 
+
+```python
+from argparse import Namespace
+import numpy as np
+from scripts.pfam import Pfam
+from scripts.utils import load_embeds_pickle
+
+pfams_dir = "/Users/goktug/Desktop/Cancer-Research/data/genes_pfams.tsv"
+embeds_dir = "/Users/goktug/Desktop/Cancer-Research/data"
+
+protbert_embeds = load_embeds_pickle(embeds_dir, "prot_bert_embeds.p")
+pfamily = Pfam(pfams_dir, "Gene")
+
+query_genes = list(protbert_embeds.keys())
+query_embeds = np.array(list(protbert_embeds.values()))
+
+config = Namespace()
+config.n_components = 2
+config.perplexity = 50
+config.init = "random"
+config.learning_rate = "auto"
+
+target_pfams = ["PF00096", "PF00069"]
+
+pfamily.apply_tsne(query_genes, query_embeds, config, target_pfams)
+
+```
+
+
+
 ## Proteins 
 
 The primary structure of a protein is essentially a sequence of amino acids linked by peptide bonds, forming a polypeptide chain. This sequence is not random but is precisely determined by the corresponding gene via messenger RNA. The diversity of polypeptide chains arises from various combinations of 20 distinct amino acids, though selenocysteine, the 21st amino acid, also appears in 25 human selenoproteins, some of which are involved in antioxidant defense and thyroid hormone regulation.
