@@ -1,7 +1,7 @@
 from argparse import Namespace
 import numpy as np
 from pfam import Pfam
-from utils import load_embeds_pickle
+from protein import load_embeds_pickle
 
 pfams_dir = "/Users/goktug/Desktop/Cancer-Research/data/genes_pfams.tsv"
 embeds_dir = "/Users/goktug/Desktop/Cancer-Research/data"

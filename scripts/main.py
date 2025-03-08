@@ -1,4 +1,5 @@
-from scripts.utils import ProteinDB
+from protein import ProteinDB
+from utils import default_fields
 
 data_dir = "./data/human_proteome_reviewed.tsv"
 protein_db = ProteinDB(data_dir)
@@ -17,6 +18,12 @@ proteins = protein_db.search_gene("AKAP7")
 print(proteins)
 print()
 
-# saving genes and pfams in a separate tsv file
+# search for mouse p53 in our database
+uniprot_id = "P02340"
+entry = protein_db.query_to_uniprot(uniprot_id, default_fields)
+print(entry)
+print()
+
+"""# saving genes and pfams in a separate tsv file
 save_dir = "./data/genes_pfams.tsv"
-protein_db.save_columns(["Entry Name", "Gene", "Pfam"], save_dir, True)
+protein_db.save_columns(["Entry Name", "Gene", "Pfam"], save_dir, True)"""
