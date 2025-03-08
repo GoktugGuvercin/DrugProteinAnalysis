@@ -15,8 +15,7 @@ class ProteinDB:
             database_tsv_dir: str,
     ) -> None:
 
-        """ Defines protein database.
-
+        """ It defines protein database.
         Args:
           database_tsv_dir: the directory of tsv file containing protein entries [1]
 

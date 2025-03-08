@@ -30,7 +30,6 @@ def load_embeds_pickle(source_dir: str, file_name: str) -> dict:
 
 def is_string(name: str) -> bool:
     """ checks if input argument is a string object or not
-
     Args:
       name: uniprot id or gene name in str format
     """
@@ -41,7 +40,6 @@ def is_string(name: str) -> bool:
 
 def has_pyrrolysine(seq: str) -> bool:
     """Checks the sequence contains pyrrolsine amino acid.
-
     * Pyrrolysine, encoded by the 'amber' stop codon UAG, is
     an a-amino acid involved in protein biosynthesis in certain
     methanogenic archaea and bacteria. Notably, it is absent in
@@ -103,7 +101,7 @@ def generate_colors() -> np.ndarray:
 
 def network(
         method_name: str,
-        genes: list,
+        query_genes: list,
         species: int,
         network_type: str,
         confidence: float,
@@ -112,8 +110,31 @@ def network(
         output_format: str = "tsv-no-header"
 ) -> tuple:
 
+    """It searches genes in STRING databse for PPI graphs.
+
+    * The proteins collaborate with each other for cellular pathways, and
+    also assemble together to create a larger protein complex. All these are
+    regarded as protein-protein associations, which are represented as PPI
+    graphs.
+
+    * This function receive some gene names as input, and check whether the
+    proteins of those genes have such an interaction in cellular operations.
+    Upon request by "add_color_nodes" parameter, this function searches for
+    other proteins related to the proteins of query genes, and add them to
+    PPI graph.
+
+    Args:
+      - method_name: the name of function in STRING-API to be used ("network")
+      - query_genes: the list of gene names used to construct PPI graph
+      - species: NCBI taxonomoy id for that species (9606 for human)
+      - network_type: the type of network, either "functional" or "physical"
+      - confidence: (50-1000) less confidence score, more connection between the proteins
+      - add_color_nodes: N number of additional genes to interact with query genes
+      - unk_prots_dir: the directory of the file to include the names of the genes
+      that will be excluded from PPI graph """
+
     params = {
-        "identifiers": "%0d".join(genes),
+        "identifiers": "%0d".join(query_genes),
         "species": species,
         "network_type": network_type,
         "add_nodes": add_color_nodes,
