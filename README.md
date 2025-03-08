@@ -2,9 +2,27 @@
 
 This repository is dedicated to drug and protein analysis. It will higlight theoretical knowledge-base together with related deep learning projects. 
 
-1. [Cancer Drugs](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/Drugs.md)
-2. [Protein Database](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/scripts/utils.py)
-3. [Protein Families](https://github.com/GoktugGuvercin/DrugProteinAnalysis/blob/main/scripts/pfam.py)
+1. Cancer Drugs:
+  - **Drugs.md**
+
+2. Protein Database:
+  - **protein.py**
+  - **main.py**
+  - **human_proteome_reviewed.tsv**
+
+3. Protein Families:
+  - **pfam.py**
+  - **pfam_main.py**
+  - **genes_pfams.tsv**
+
+4. Protein-Protein Interaction Networks:
+  - **networks.py**
+  - **string_main.py**
+  - **ppi_graphs**
+
+5. Protein LLM Embeddings:
+  - **embedder.py**
+  - **string_main.py**
 
 
 ## ProteinDB
@@ -37,6 +55,62 @@ save_dir = "./data/genes_pfams.tsv"
 protein_db.save_columns(["Entry Name", "Gene", "Pfam"], save_dir, True)
 
 ```
+
+## PPI Graphs and PLLMs
+
+* The proteins generally collaborate with each other to carry out cellular pathways. This is commonly called as functional partnership. They are also capable of coming together to create an assembly, where they physically associate with each other to create a larger protein complex. Furthermore, some proteins regulate each other through the intermediaries. All these are regarded as protein-protein associations, which are represented as PPI graphs.
+
+* Protein-protein interactions are provided by [STRING](https://string-db.org/cgi/input?sessionId=b6vqbCZuYG9j&input_page_show_search=on) database. The function `network()` in `utils.py` can directly send a query to search for possible PPI graphs for any set of genes, and return the names of protein nodes together with edges as PPI represenatives. These nodes and edges can be processed by our `PPI` class in `networks.py`. It provides a data structure to perform any kind of graph operation and also visualize PPI graphs easily. 
+
+* Protein nodes in PPI graphs are commonly initialized by protein embeddings. At this point, new protein language models are capable of understanding the structure of primary protein sequences in a quite descriptive way, and reveal it feature embeddings. In accordance with this, two protein language models are integrated as an embedder to this project, which are `ProtT5Embedder` and `ProtTransEmbedder` accessible in `embedder.py`. 
+
+
+```python
+
+from utils import network
+from networks import PPI
+from protein import ProteinDB
+from embedder import ProtTransEmbedder
+
+ppi_graphs = "/Users/goktug/Desktop/Cancer-Research/ppi_graphs"
+prot_db_dir = "./data/human_proteome_reviewed.tsv"
+
+# creating PPI and ProteinDB objects
+ppi = PPI()
+protein_db = ProteinDB(prot_db_dir)
+
+# ProtTrans Embeddings
+# ====================
+mras = protein_db.search_gene("MRAS")
+shoc2 = protein_db.search_gene("SHOC2")
+
+mras_seq = mras["Sequence"].values[0]
+shoc2_seq = mras["Sequence"].values[0]
+
+prot_trans = ProtTransEmbedder(device="cpu")
+embeds = prot_trans.compute_res_embeds([mras_seq, shoc2_seq])
+print(embeds.shape)
+
+# PPI Graph of Phosphatase Protein Complex
+# ========================================
+nodes, edges = network(
+    method_name="network",
+    genes=["MRAS", "SHOC2", "PP1C"],
+    species=9606,
+    network_type="functional",
+    confidence=350.0,
+    add_color_nodes=5,
+)
+
+ppi.add_nodes(nodes)
+ppi.add_edges(edges)
+ppi.draw_d3_graph("phosphatase complex", "#FFA500", ppi_graphs)
+
+```
+
+<p align="center">
+  <img src="https://github.com/GoktugGuvercin/Cancer-Research/blob/main/images/ppi_graph.png" width="400" title="PPI Graph">
+</p>
 
 ## Pfam
 
