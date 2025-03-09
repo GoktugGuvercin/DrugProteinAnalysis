@@ -3,32 +3,20 @@
 This repository is dedicated to drug and protein analysis. It will higlight theoretical knowledge-base together with related deep learning projects. 
 
 1. Cancer Drugs:
-  - **Drugs.md**
 
 2. Protein Database:
-  - **protein.py**
-  - **main.py**
-  - **human_proteome_reviewed.tsv**
 
 3. Protein Families:
-  - **pfam.py**
-  - **pfam_main.py**
-  - **genes_pfams.tsv**
 
 4. Protein-Protein Interaction Networks:
-  - **networks.py**
-  - **string_main.py**
-  - **ppi_graphs**
 
 5. Protein LLM Embeddings:
-  - **embedder.py**
-  - **string_main.py**
-
 
 ## ProteinDB
 
 To construct a protein database, we need to have protein entries in a `.tsv` file format. I specifically opted for human proteome entries, which is provided by [UniProt](https://www.uniprot.org/proteomes/UP000005640) database. The given code block below is standard `main.py` to realize a protein database and search for any protein id or gene name.
-Our `ProteinDB` also allows for saving specific columns of its database entries; passing requested column names is enough for this.
+Our `ProteinDB` in `protein.py` also allows for saving specific columns of its database entries; passing requested column names is enough for this.
+
 
 ```python
 from scripts.utils import ProteinDB
@@ -58,12 +46,13 @@ protein_db.save_columns(["Entry Name", "Gene", "Pfam"], save_dir, True)
 
 ## PPI Graphs and PLLMs
 
-* The proteins generally collaborate with each other to carry out cellular pathways. This is commonly called as functional partnership. They are also capable of coming together to create an assembly, where they physically associate with each other to create a larger protein complex. Furthermore, some proteins regulate each other through the intermediaries. All these are regarded as protein-protein associations, which are represented as PPI graphs.
+The proteins generally collaborate with each other to carry out cellular pathways. This is commonly called as functional partnership. They are also capable of coming together to create an assembly, where they physically associate with each other to create a larger protein complex. Furthermore, some proteins regulate each other through the intermediaries. All these are regarded as protein-protein associations, which are represented as PPI graphs.
 
-* Protein-protein interactions are provided by [STRING](https://string-db.org/cgi/input?sessionId=b6vqbCZuYG9j&input_page_show_search=on) database. The function `network()` in `utils.py` can directly send a query to search for possible PPI graphs for any set of genes, and return the names of protein nodes together with edges as PPI represenatives. These nodes and edges can be processed by our `PPI` class in `networks.py`. It provides a data structure to perform any kind of graph operation and also visualize PPI graphs easily. 
+Protein-protein interactions are provided by [STRING](https://string-db.org/cgi/input?sessionId=b6vqbCZuYG9j&input_page_show_search=on) database. The function `network()` in `utils.py` can directly send a query to search for possible PPI graphs for any set of genes, and return the names of protein nodes together with edges as PPI represenatives. These nodes and edges can be processed by our `PPI` class in `networks.py`. It provides a data structure to perform any kind of graph operation and also visualize PPI graphs easily. 
 
-* Protein nodes in PPI graphs are commonly initialized by protein embeddings. At this point, new protein language models are capable of understanding the structure of primary protein sequences in a quite descriptive way, and reveal it feature embeddings. In accordance with this, two protein language models are integrated as an embedder to this project, which are `ProtT5Embedder` and `ProtTransEmbedder` accessible in `embedder.py`. 
+Protein nodes in PPI graphs are commonly initialized by protein embeddings. At this point, new protein language models are capable of understanding the structure of primary protein sequences in a quite descriptive way, and reveal it feature embeddings. In accordance with this, two protein language models are integrated as an embedder to this project, which are `ProtT5Embedder` and `ProtTransEmbedder` accessible in `embedder.py`. 
 
+You can use and test them in `string_main.py`.
 
 ```python
 
@@ -114,9 +103,13 @@ ppi.draw_d3_graph("phosphatase complex", "#FFA500", ppi_graphs)
 
 ## Pfam
 
-Protein families are categorization groups for the structure and functionality of proteins. Our `Pfam` provides an information retrieval system between genes or proteins and related pfam entries. To instantiate `Pfam` database, we can use `genes_pfams.tsv` file, which will construct gene $\rightarrow$ pfam and pfam $\rightarrow$ gene dictionaries, as well as assign color codes to distinct pfam groups. 
+Each protein family contains many different proteins, that share some conserved domains. This domain for its carrier proteins are not completely same, it actually differentiates. However, some common nucleotide motifs are located in that domain, which provides similar functionalities for those proteins. [Pfam database](http://pfam.xfam.org) is a large collection of protein families, where different proteins are categorized.
+
+Our `Pfam` class in `pfam.py` aims to imitate some properties of this database, actually it constructs an information retrieval system between genes/proteins and related pfam entries. To instantiate `Pfam` object, we can use `genes_pfams.tsv` file. At first, it will define gene $\rightarrow$ pfam and pfam $\rightarrow$ gene dictionaries, then assigns color codes to distinct pfam groups.
 
 By using `ProtTrans` model, which is not added to this repository, we created embedding vectors for thousands of proteins and matched these embeddings with gene names of those proteins in pickle file `prot_bert_embeds.p`. By using these embeddings, we can generate TSNE visualization of the proteins, and we can assign color codes to these proteins in TSNE depending on protein family entries in our `Pfam` database. To achieve that, we can access pfam entries of target proteins by their gene names in `prot_bert_embeds.p` file. 
+
+You can use and test them in `pfam_main.py`.
 
 ```python
 from argparse import Namespace
