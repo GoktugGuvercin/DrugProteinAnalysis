@@ -27,7 +27,7 @@ print(embeds.shape)
 # ========================================
 nodes, edges = network(
     method_name="network",
-    genes=["MRAS", "SHOC2", "PP1C"],
+    query_genes=["MRAS", "SHOC2", "PP1C"],
     species=9606,
     network_type="functional",
     confidence=350.0,
