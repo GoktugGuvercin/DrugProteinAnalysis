@@ -2,11 +2,11 @@
 
 This repository is dedicated to drug and protein analysis. It will higlight theoretical knowledge-base together with related deep learning projects. 
 
-1. Cancer Drugs:
-2. Protein Database:
-3. Protein Families:
-4. Protein-Protein Interaction Networks:
-5. Protein LLM Embeddings:
+1. Cancer Drugs
+2. Protein Database
+3. Protein Families
+4. Protein-Protein Interaction Networks
+5. Protein LLM Embeddings
 
 ## ProteinDB
 
